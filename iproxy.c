@@ -32,10 +32,14 @@
 
 #include <arpa/inet.h>
 
+#include <ev.h>
+
 enum{
     TYPE_UDP_TO_TCP = 0,
     TYPE_TCP_TO_UDP
 };
+
+const char *relay_type[] = {"udp_to_tcp", "tcp_to_udp"};
 
 static int verbose = 0;
 
@@ -48,11 +52,11 @@ typedef struct config_info{
     int  serv_port;
 }cfg, *cfg_p;
 
-void usage(const char *name)
+void usage(char *name)
 {
     printf(
         "usage: \n"
-        "%s -v -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500\n",
+        "\t%s -v -t u2t -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500\n",
         basename(name)
     );
 }
@@ -69,12 +73,9 @@ void vlog(const char *format, ...)
     memset(tbuf, 0, sizeof(tbuf));
 
     now = time(NULL);
-
     ctime_r(&now, tbuf);
-
     tbuf[strlen(tbuf) - 1] = '\0';
-
-	printf("==> [%s]", tbuf);
+	printf("[%s]  ", tbuf);
 
     va_start(ap, format);
     vprintf(format, ap);
@@ -138,6 +139,10 @@ int main(int argc, char **argv)
         usage(argv[0]);
         return -1;
     }
+
+    vlog ("relay: %s\n", relay_type[type]);
+    vlog ("bind:  %s:%d\n", cfg.bind_addr, cfg.bind_port);
+    vlog ("serv:  %s:%d\n", cfg.serv_addr, cfg.serv_port);
 
     if (type == TYPE_UDP_TO_TCP) 
         udp_to_tcp_proxy(&cfg);
