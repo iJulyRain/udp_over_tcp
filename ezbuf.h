@@ -16,6 +16,12 @@
  * =====================================================================================
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <assert.h>
+
 #ifndef __EZBUF_H__
 #define __EZBUF_H__
 
@@ -26,6 +32,9 @@ typedef struct ezbuf
     int ri, wi;
     char buffer[EZBUF_MAX];
 }ezbuf_t;
+
+ezbuf_t *ezbuf_new(void);
+void ezbuf_del(ezbuf_t *ezbuf);
 
 void ezbuf_init(ezbuf_t *ezbuf);
 

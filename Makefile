@@ -1,5 +1,5 @@
 iproxy: *.c 
-	gcc -o $@ $^
+	gcc -Wall -o $@ $^ -lev -g
 
 clean:
 	rm -f iproxy

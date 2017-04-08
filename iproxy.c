@@ -16,80 +16,19 @@
  * =====================================================================================
  */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-
-#include <time.h>
-#include <libgen.h>
-#include <getopt.h>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
-
-#include <arpa/inet.h>
-
-#include <ev.h>
-
-enum{
-    TYPE_UDP_TO_TCP = 0,
-    TYPE_TCP_TO_UDP
-};
+#include "iproxy.h"
 
 const char *relay_type[] = {"udp_to_tcp", "tcp_to_udp"};
 
-static int verbose = 0;
+extern int verbose;
 
-#define IP_ADDR_MAX 32
-
-typedef struct config_info{
-    char bind_addr[IP_ADDR_MAX];
-    char serv_addr[IP_ADDR_MAX];
-    int  bind_port;
-    int  serv_port;
-}cfg, *cfg_p;
-
-void usage(char *name)
+static void usage(char *name)
 {
     printf(
         "usage: \n"
         "\t%s -v -t u2t -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500\n",
         basename(name)
     );
-}
-
-void vlog(const char *format, ...)
-{
-    va_list ap; 
-    time_t now;
-    char tbuf[32];
-
-    if (verbose == 0)
-        return;
-
-    memset(tbuf, 0, sizeof(tbuf));
-
-    now = time(NULL);
-    ctime_r(&now, tbuf);
-    tbuf[strlen(tbuf) - 1] = '\0';
-	printf("[%s]  ", tbuf);
-
-    va_start(ap, format);
-    vprintf(format, ap);
-    va_end(ap);
-}
-
-void udp_to_tcp_proxy(cfg_p cfg)
-{
-    vlog("udp_to_tcp proxy relay\n");
-}
-
-void tcp_to_udp_proxy(cfg_p cfg)
-{
-    vlog("tcp_to_udp proxy relay\n");
 }
 
 int main(int argc, char **argv)

@@ -16,12 +16,17 @@
  * =====================================================================================
  */
 
-#include <stdio.h>
-#include <string.h>
-
-#include <assert.h>
-
 #include "ezbuf.h"
+
+ezbuf_t *ezbuf_new(void)
+{
+    return (ezbuf_t *)malloc(sizeof(ezbuf_t));
+}
+
+void ezbuf_del(ezbuf_t *ezbuf)
+{
+    free(ezbuf);
+}
 
 void ezbuf_init(ezbuf_t *ezbuf)
 {
@@ -68,8 +73,6 @@ size_t ezbuf_get(ezbuf_t *ezbuf, char *ptr, int length)
 
 #if 0
 
-#include <stdlib.h>
-
 int main(int argc, const char **argv)
 {
     int i;
@@ -93,5 +96,4 @@ int main(int argc, const char **argv)
 
     return 0;
 }
-
 #endif
