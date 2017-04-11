@@ -20,7 +20,10 @@
 
 ezbuf_t *ezbuf_new(void)
 {
-    return (ezbuf_t *)malloc(sizeof(ezbuf_t));
+    ezbuf_t *ezbuf = (ezbuf_t *)malloc(sizeof(ezbuf_t));
+    ezbuf_init(ezbuf);
+
+    return ezbuf;
 }
 
 void ezbuf_del(ezbuf_t *ezbuf)
@@ -69,6 +72,11 @@ size_t ezbuf_get(ezbuf_t *ezbuf, char *ptr, int length)
     ezbuf->ri += length;
 
     return length;
+}
+
+size_t ezbuf_size(ezbuf_t *ezbuf)
+{
+    return ezbuf->wi - ezbuf->ri;
 }
 
 #if 0

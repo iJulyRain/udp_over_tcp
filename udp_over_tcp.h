@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:  iproxy.h
+ *       Filename:  udp_over_tcp.h
  *
- *    Description:  iproxy header
+ *    Description:  udp_over_tcp header
  *
  *        Version:  1.0
  *        Created:  2017年04月07日 20时28分25秒
@@ -59,8 +59,21 @@ typedef struct config_info{
 
 #define IO_TIMEOUT_MAX  10
 
+//log
 void vlog(const char *format, ...);
 
+//package
+#define PACKAGE_MAX 1500 
+
+typedef struct package{
+    int  size;
+    char data[PACKAGE_MAX];
+}package_t;
+
+int packet(const char *src, int size, char *dst);
+int unpack(const char *src, int size, char *dst);
+
+//relay
 void udp_to_tcp_proxy(cfg_p cfg);
 void tcp_to_udp_proxy(cfg_p cfg);
 

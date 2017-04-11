@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:  utpproxy.c
+ *       Filename:  main.c
  *
- *    Description:  utpproxy
+ *    Description:  udp over tcp 
  *
  *        Version:  1.0
  *        Created:  2017年04月01日 17时14分22秒
@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "iproxy.h"
+#include "udp_over_tcp.h"
 
 const char *relay_type[] = {"udp_to_tcp", "tcp_to_udp"};
 
@@ -26,7 +26,9 @@ static void usage(char *name)
 {
     printf(
         "usage: \n"
-        "\t%s -v -t u2t -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500\n",
+        "\t%s -v -t u2t -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500\n"
+        "u2t udp to tcp\n"
+        "t2u tcp to udp\n",
         basename(name)
     );
 }

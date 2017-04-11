@@ -25,7 +25,7 @@
 #ifndef __EZBUF_H__
 #define __EZBUF_H__
 
-#define EZBUF_MAX   4096 
+#define EZBUF_MAX 8 * 1024  //8k
 
 typedef struct ezbuf
 {
@@ -40,5 +40,6 @@ void ezbuf_init(ezbuf_t *ezbuf);
 
 size_t ezbuf_put(ezbuf_t *ezbuf, const char *ptr, int length);
 size_t ezbuf_get(ezbuf_t *ezbuf, char *ptr, int length);
+size_t ezbuf_size(ezbuf_t *ezbuf);
 
 #endif
