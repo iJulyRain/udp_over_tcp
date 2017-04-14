@@ -27,8 +27,8 @@ static void usage(char *name)
     printf(
         "usage: \n"
         "\t%s -v -t u2t -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500\n"
-        "u2t udp to tcp\n"
-        "t2u tcp to udp\n",
+        "\t* u2t udp to tcp\n"
+        "\t* t2u tcp to udp\n",
         basename(name)
     );
 }

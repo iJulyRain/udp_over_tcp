@@ -238,7 +238,6 @@ epoll_poll (EV_P_ ev_tstamp timeout)
 int inline_size
 epoll_init (EV_P_ int flags)
 {
-    printf("epoll");
 #ifdef EPOLL_CLOEXEC
   backend_fd = epoll_create1 (EPOLL_CLOEXEC);
 

@@ -66,7 +66,7 @@ void vlog(const char *format, ...);
 #define PACKAGE_MAX 1500 
 
 typedef struct package{
-    int  size;
+    size_t  size;
     char data[PACKAGE_MAX];
 }package_t;
 

@@ -36,7 +36,7 @@ void ezbuf_init(ezbuf_t *ezbuf)
     assert(ezbuf);
 
     ezbuf->ri = ezbuf->wi = 0;
-    memset(ezbuf->buffer, 0, sizeof(EZBUF_MAX));
+    memset(ezbuf->buffer, 0, EZBUF_MAX);
 }
 
 size_t ezbuf_put(ezbuf_t *ezbuf, const char *ptr, int length)
@@ -66,7 +66,8 @@ size_t ezbuf_get(ezbuf_t *ezbuf, char *ptr, int length)
 {
     assert(ezbuf);
 
-    length = ezbuf->wi - ezbuf->ri;
+    if (length > (ezbuf->wi - ezbuf->ri))
+       length = ezbuf->wi - ezbuf->ri;
 
     memcpy(ptr, ezbuf->buffer + ezbuf->ri, length);
     ezbuf->ri += length;

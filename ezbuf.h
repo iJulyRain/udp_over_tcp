@@ -25,7 +25,7 @@
 #ifndef __EZBUF_H__
 #define __EZBUF_H__
 
-#define EZBUF_MAX 8 * 1024  //8k
+#define EZBUF_MAX 8 * 1024
 
 typedef struct ezbuf
 {
