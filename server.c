@@ -19,6 +19,7 @@
 #include "udp_over_tcp.h"
 #include "hash.h"
 #include "ezbuf.h"
+#include "cipher.h"
 
 /*
  * tcp client---------|                                |--------udp client
@@ -154,6 +155,9 @@ static void tcp_recv_cb(EV_P_ ev_io *w, int revents)
 
         bsize = ezbuf_get(relay_ctx->recv_buf, buffer, bsize);
         rx = unpack(buffer, bsize, buffer);
+
+        rs_decrypt(buffer, buffer, rx, relay_ctx->cfg->password);
+
         vlog("[tcp] recv(%d) from %s:%d\n", rx, inet_ntoa(relay_ctx->src_addr.sin_addr), ntohs(relay_ctx->src_addr.sin_port));
 
         sendto(
@@ -215,6 +219,8 @@ static void udp_recv_cb(EV_P_ ev_io *w, int revents)
         return;
 
     vlog("[udp] recv(%d) from %s:%d\n", rx, inet_ntoa(src_addr.sin_addr), ntohs(src_addr.sin_port));
+
+    rs_encrypt(buffer, buffer, rx, relay_ctx->cfg->password);
 
     bsize = packet(buffer, rx, buffer);
 

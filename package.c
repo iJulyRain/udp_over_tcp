@@ -46,7 +46,7 @@ int unpack(const char *src, int size, char *dst)
     assert(dst);
 
     package_t package;
-    memcpy((void *)&package, src, size);
+    memcpy((void *)&package, src, size); //no good
 
     memcpy(dst, package.data, package.size);
 

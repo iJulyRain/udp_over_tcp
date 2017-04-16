@@ -26,7 +26,7 @@ static void usage(char *name)
 {
     printf(
         "usage: \n"
-        "\t%s -v -t u2t -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500\n"
+        "\t%s -v -t u2t -b 0.0.0.0 -l 4500 -s 192.168.1.111 -p 4500 -k password\n"
         "\t* u2t udp to tcp\n"
         "\t* t2u tcp to udp\n",
         basename(name)
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     cfg cfg;
     memset(&cfg, 0, sizeof(cfg));
 
-    while ((option = getopt(argc, argv, "b:l:s:p:t:v")) > 0)
+    while ((option = getopt(argc, argv, "b:l:s:p:t:k:v")) > 0)
     {
         switch (option)
         {
@@ -66,6 +66,9 @@ int main(int argc, char **argv)
             case 'p':
                 cfg.serv_port = atoi(optarg);
                 break;
+            case 'k':
+                strncpy(cfg.password, optarg, PASSWORD_MAX - 1);
+                break;
             default:
                 usage(argv[0]);
                 return -1;
@@ -74,6 +77,7 @@ int main(int argc, char **argv)
 
     if (cfg.bind_addr[0] == '\0'
     ||  cfg.serv_addr[0] == '\0'
+    ||  cfg.password[0]  == '\0'
     ||  cfg.bind_port    <= 0
     ||  cfg.serv_port    <= 0)
     {

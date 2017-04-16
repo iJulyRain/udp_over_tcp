@@ -50,9 +50,12 @@ enum{
 
 #define IP_ADDR_MAX 32
 
+#define PASSWORD_MAX 64
+
 typedef struct config_info{
     char bind_addr[IP_ADDR_MAX];
     char serv_addr[IP_ADDR_MAX];
+    char password[PASSWORD_MAX];
     int  bind_port;
     int  serv_port;
 }cfg, *cfg_p;
